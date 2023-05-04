@@ -1,3 +1,7 @@
 Rails.application.routes.draw do
-  get '/representatives', to: 'representatives#index'
+  namespace :api do 
+    namespace :v1 do 
+      get '/representatives', to: 'representatives#index'
+    end 
+  end 
 end
