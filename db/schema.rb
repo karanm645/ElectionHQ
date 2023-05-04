@@ -10,9 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_03_211457) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_04_172604) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "elections", force: :cascade do |t|
+    t.string "registration_deadline"
+    t.string "mail_deadline"
+    t.string "in_person_deadline"
+    t.string "election_day"
+    t.string "results"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_elections_on_user_id"
+  end
 
   create_table "representatives", force: :cascade do |t|
     t.string "full_name"
@@ -23,6 +35,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_03_211457) do
     t.string "social"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_representatives_on_user_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "street"
+    t.string "city"
+    t.string "state"
+    t.integer "zip_code"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "elections", "users"
+  add_foreign_key "representatives", "users"
 end

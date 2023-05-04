@@ -1,4 +1,3 @@
 class Representative < ApplicationRecord
-end
-class Representative
+  belongs_to :user
 end  
