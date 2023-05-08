@@ -1,6 +1,6 @@
 class RepresentativeService
-  def self.get_reps
-    response = Faraday.get("https://api.openweathermap.org/data/2.5/onecall?appid=#{ENV["weather_api_key"]}&lat=#{latitude}&lon=#{longitude}&exclude=minutely,alerts")
+  def self.get_reps(address)
+    response = Faraday.get("https://www.googleapis.com/civicinfo/v2/representatives?key=#{ENV["google_api_key"]}&address=#{address}")
     JSON.parse(response.body, symbolize_names: true)
   end 
 end 
